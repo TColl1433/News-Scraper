@@ -1,4 +1,45 @@
-<div>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{!-- looping  through array we have in our template file --}}
+        {{!-- opening  each loop --}}
+        {{#each stocks}}
+        {{!-- inside this each loop we have access to each one of our objects --}}
+        <tr>
+            <td class="name">{{name}}</td>
+            <td class="price">{{price}}</td>
+            <td>
+                {{#if this.favorited }}
+
+                <button disabled>Saved</button>
+
+                {{else}}
+
+                <button class="favorite">Save</button>
+
+                {{/if}}
+            </td>
+        </tr>
+
+
+        {{!-- closing  each loop --}}
+        {{/each}}
+
+    </tbody>
+</table>
+
+
+
+
+
+
+
+{{!-- ----------------------------------------FIRTST ATTEMPT (unsuccessful)-------------------------------------- --}}
+{{!-- <div>
     <h1 class="card z-depth-3 center-align">Read the latest from the Onion</h1>
     <div class="row">
         <div class="col s3"></div>
@@ -13,7 +54,7 @@
         {{#each article}}
         <div id="articles"></div>
             <h4> {{this.title}} </h4>
-            {{!-- <a href="/readArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignup">Read Article</a> --}}
+            <a href="/readArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignup">Read Article</a>
         </div>
         {{/each}}
     </div>
@@ -24,4 +65,4 @@
       <h2><i>If you can do this...the homework should be no problem.</i></h2>
       <div id="articles"></div>
       <div id="notes"></div>
-    </div>
+    </div> --}}

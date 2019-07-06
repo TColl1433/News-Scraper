@@ -1,18 +1,50 @@
-const express = require("express");
+const express = require('express');
+const exphbs = require('express-handlebars');
+const path = require('path');
 const PORT = 5000;
 const routes = require('./routes/routes');
+const MongoClient = require('mongodb').MongoClient;
+const db_url = 'mongodb://localhost:27017';
+
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+// setup Express to handle form data and attach it to the req.body
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+MongoClient.connect(db_url,
+    { useNewUrlParser: true },
+    function (err, client) {
+        if (err) throw err;
+
+        console.log("Connected successfully to server");
+
+        const db = client.db('scrapeApp');
+        const collection = db.collection('favorites');
+
+        routes(app, collection);
+
+        app.listen(PORT, () => console.log('Listening on port %s', PORT));
+    });
+
+// const mongoose = require("mongoose");
+
 
 
 //step 2 - calling function and passing in argument
-routes(app);
 
 
 
 
 
 
-app.listen(PORT, () => console.log('Listening on port %s', PORT))
+
+
 
 
 
